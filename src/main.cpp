@@ -1,25 +1,29 @@
-#include <iostream>
-
 #include <GLFW/glfw3.h>
+#include <fmt/core.h>
 
 constexpr int WIDTH = 800;
 constexpr int HEIGHT = 800;
 
 int main(void) {
-  std::cout << "hello juniorpen01s template\n";
+  glfwSetErrorCallback([](const int error, const char *const description) {
+    fmt::println(stderr, "GLFW Error [{}]: {}", error, description);
+  });
 
   if (!glfwInit()) {
-    std::cerr << "Unable to initialize GLFW";
-    return EXIT_FAILURE;
+    fmt::println("Unable to create initialize GLFW");
+    return 1;
   }
 
   GLFWwindow *const window = glfwCreateWindow(
       WIDTH, HEIGHT, "juniorpen01's Tutor Journey", nullptr, nullptr);
   if (window == nullptr) {
-    std::cerr << "Unable to create window\n";
-    return EXIT_FAILURE;
+    fmt::println("Unable to create GLFW window");
+    return 1;
   }
 
   while (!glfwWindowShouldClose(window))
-    ;
+    glfwPollEvents();
+
+  fmt::println("Done");
+  glfwTerminate();
 }

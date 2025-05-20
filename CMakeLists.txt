@@ -20,22 +20,23 @@ add_library(juniorpen01s_tutor_journey_core STATIC src/direction.cpp)
 add_library(juniorpen01s_tutor_journey::core ALIAS
             juniorpen01s_tutor_journey_core)
 target_include_directories(juniorpen01s_tutor_journey_core PUBLIC include)
-target_link_libraries(juniorpen01s_tutor_journey_core PUBLIC glfw)
+target_link_libraries(juniorpen01s_tutor_journey_core PUBLIC glfw fmt::fmt)
+target_compile_options(juniorpen01s_tutor_journey_core
+                       PUBLIC -Weverything -Wno-c++98-compat -Werror)
 
 include(CTest)
 foreach(testSource IN ITEMS tests/direction.cpp)
   cmake_path(GET testSource STEM testSourceName)
   add_executable(${testSourceName} ${testSource})
   add_test(NAME ${testSourceName} COMMAND ${testSourceName})
-  target_link_libraries(${testSourceName}
-                        PRIVATE juniorpen01s_tutor_journey::core doctest)
+  target_link_libraries(
+    ${testSourceName} PRIVATE juniorpen01s_tutor_journey::core doctest::doctest)
   target_compile_definitions(${testSourceName}
                              PRIVATE DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN)
 endforeach()
 
 include(FetchContent)
 
-# wayland pkgconfig xkbcommon
 FetchContent_Declare(
   glfw
   GIT_REPOSITORY https://github.com/glfw/glfw
@@ -43,6 +44,14 @@ FetchContent_Declare(
   GIT_SHALLOW ON
   SYSTEM)
 FetchContent_MakeAvailable(glfw)
+
+FetchContent_Declare(
+  fmt
+  GIT_REPOSITORY https://github.com/fmtlib/fmt
+  GIT_TAG 11.2.0
+  GIT_SHALLOW ON
+  SYSTEM)
+FetchContent_MakeAvailable(fmt)
 
 FetchContent_Declare(
   doctest
