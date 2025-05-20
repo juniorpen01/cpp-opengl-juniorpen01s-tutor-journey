@@ -41,11 +41,14 @@ flowchart
 
   ```bash
   sudo apt update && sudo apt upgrade && apt install -y \
+  libwayland-dev \
+  libxkbcommon-dev \
   libx11-dev \
   libxrandr-dev \
   libxinerama-dev \
   libxcursor-dev \
   libxi-dev \
+  pkg-config \
   libgl1-mesa-dev \
   ca-certificates \
   clang \
@@ -74,7 +77,7 @@ flowchart
 
    ```bash
    cd build/debug
-   ./juniorpen01s_template
+   ./juniorpen01s_tutor_journey
    ```
 
 ### Run Tests

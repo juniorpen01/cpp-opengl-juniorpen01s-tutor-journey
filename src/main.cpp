@@ -1,32 +1,25 @@
 #include <iostream>
 
-#include <raylib.h>
+#include <GLFW/glfw3.h>
+
+constexpr int WIDTH = 800;
+constexpr int HEIGHT = 800;
 
 int main(void) {
-  // TODO: Add more stuff
-  // NOTE: This was done to do more stuff
-  // WARN: This may do more stuff
-  // HACK: Doing some hacking...
-  // FIX: No idea how to do more stuff
-  // PERF: This does less stuff as time increases
-  // TEST: Null pointer was dereferenced
   std::cout << "hello juniorpen01s template\n";
 
-  InitWindow(800, 800, "juniorpen01's Template");
-
-  Image cat_img = LoadImage("res/cat.jpg");
-  ImageResize(&cat_img, 800, 800);
-
-  Texture cat = LoadTextureFromImage(cat_img);
-
-  UnloadImage(cat_img);
-
-  while (!WindowShouldClose()) {
-    BeginDrawing();
-    DrawTexture(cat, 0, 0, RAYWHITE);
-    EndDrawing();
+  if (!glfwInit()) {
+    std::cerr << "Unable to initialize GLFW";
+    return EXIT_FAILURE;
   }
 
-  UnloadTexture(cat);
-  CloseWindow();
+  GLFWwindow *const window = glfwCreateWindow(
+      WIDTH, HEIGHT, "juniorpen01's Tutor Journey", nullptr, nullptr);
+  if (window == nullptr) {
+    std::cerr << "Unable to create window\n";
+    return EXIT_FAILURE;
+  }
+
+  while (!glfwWindowShouldClose(window))
+    ;
 }
