@@ -1,0 +1,22 @@
+{
+  "todo-tree.general.tags": [
+    "TODO:",
+    "NOTE:",
+    "WARN:",
+    "HACK:",
+    "FIX:",
+    "PERF:",
+    "TEST:"
+  ],
+  "todo-tree.highlights.defaultHighlight": { "type": "line" },
+  "todo-tree.highlights.customHighlight": {
+    "TODO:": { "foreground": "#2563eb", "icon": "check" },
+    "NOTE:": { "foreground": "#10b981", "icon": "comment" },
+    "WARN:": { "foreground": "#fbbf24", "icon": "alert" },
+    "HACK:": { "foreground": "#fbbf24", "icon": "flame" },
+    "FIX:": { "foreground": "#dc2626", "icon": "bug" },
+    "PERF:": { "foreground": "#7c3ead", "icon": "meter" },
+    "TEST:": { "foreground": "#f0f", "icon": "beaker" }
+  },
+  "files.associations": { ".clangd": "yaml" }
+}

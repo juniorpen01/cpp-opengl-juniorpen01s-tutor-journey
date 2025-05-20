@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "name": "Debug App",
+      "type": "lldb",
+      "program": "build/debug/juniorpen01s_template",
+      "request": "launch"
+    }
+  ]
+}

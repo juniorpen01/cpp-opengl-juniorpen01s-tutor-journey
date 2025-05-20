@@ -1,0 +1,14 @@
+build
+
+.git
+.gitignore
+
+Dockerfile
+.dockerignore
+
+README.md
+LICENSE
+
+.clangd
+
+.vscode
