@@ -11,6 +11,7 @@ RUN apt-get update && \
     libxi-dev \
     pkg-config \
     libgl1-mesa-dev \
+    libglu1-mesa-dev \
     ca-certificates \
     clang \
     ninja-build \

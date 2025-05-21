@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.25.1)
+cmake_policy(SET CMP0072 NEW)
 project(
   Juniorpen01sTemplate
   LANGUAGES CXX
@@ -20,7 +21,8 @@ add_library(juniorpen01s_tutor_journey_core STATIC src/direction.cpp)
 add_library(juniorpen01s_tutor_journey::core ALIAS
             juniorpen01s_tutor_journey_core)
 target_include_directories(juniorpen01s_tutor_journey_core PUBLIC include)
-target_link_libraries(juniorpen01s_tutor_journey_core PUBLIC glfw fmt::fmt)
+target_link_libraries(juniorpen01s_tutor_journey_core PUBLIC glfw glew_s
+                                                             fmt::fmt)
 target_compile_options(juniorpen01s_tutor_journey_core
                        PUBLIC -Weverything -Wno-c++98-compat -Werror)
 
@@ -44,6 +46,16 @@ FetchContent_Declare(
   GIT_SHALLOW ON
   SYSTEM)
 FetchContent_MakeAvailable(glfw)
+
+FetchContent_Declare(
+  glew
+  URL https://github.com/nigels-com/glew/releases/download/glew-2.2.0/glew-2.2.0.tgz
+      SOURCE_SUBDIR
+      build/cmake)
+FetchContent_MakeAvailable(glew)
+
+target_include_directories(juniorpen01s_tutor_journey_core SYSTEM
+                           PUBLIC ${glew_SOURCE_DIR}/include)
 
 FetchContent_Declare(
   fmt
