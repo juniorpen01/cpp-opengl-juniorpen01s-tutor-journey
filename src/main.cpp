@@ -7,6 +7,8 @@
 constexpr int WIDTH = 800;
 constexpr int HEIGHT = 800;
 
+// HACK: ALL OF IT
+
 template <typename T> struct Vector2 {
   static_assert(std::is_arithmetic<T>::value,
                 "Vector2 only supports numeric types");
@@ -53,16 +55,20 @@ int main(void) {
   const auto vertex2 = vertex1.rotate(120);
   const auto vertex3 = vertex1.rotate(240);
 
+  const float nudge = .25;
+
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     glfwPollEvents();
 
     glBegin(GL_TRIANGLES);
-    glVertex2f(vertex1.x, vertex1.y);
+    glVertex2f(vertex1.x, static_cast<float>(vertex1.y) - nudge);
     glColor3f(1, 0, 0);
-    glVertex2f(static_cast<float>(vertex2.x), static_cast<float>(vertex2.y));
+    glVertex2f(static_cast<float>(vertex2.x),
+               static_cast<float>(vertex2.y) - nudge);
     glColor3f(0, 1, 0);
-    glVertex2f(static_cast<float>(vertex3.x), static_cast<float>(vertex3.y));
+    glVertex2f(static_cast<float>(vertex3.x),
+               static_cast<float>(vertex3.y) - nudge);
     glColor3f(0, 0, 1);
     glEnd();
 
