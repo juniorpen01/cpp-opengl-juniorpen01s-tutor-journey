@@ -18,5 +18,6 @@
     "PERF:": { "foreground": "#7c3ead", "icon": "meter" },
     "TEST:": { "foreground": "#f0f", "icon": "beaker" }
   },
+  "todo-tree.regex.regex": "(//)\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",
   "files.associations": { ".clangd": "yaml" }
 }
