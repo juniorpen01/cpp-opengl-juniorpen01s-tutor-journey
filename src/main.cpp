@@ -1,29 +1,13 @@
 #include <cmath>
-#include <type_traits>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <fmt/core.h>
+#include <glm/ext/scalar_constants.hpp>
 #include <glm/glm.hpp>
 
 constexpr int WIDTH = 800;
 constexpr int HEIGHT = 800;
-
-// HACK: ALL OF IT
-
-template <typename T> struct Vector2 {
-  static_assert(std::is_arithmetic<T>::value,
-                "Vector2 only supports numeric types");
-
-  T x, y;
-
-  const Vector2 rotate(const double degrees) const {
-    const double radians = degrees * M_PI / 180;
-    const double cos_theta = std::cos(radians);
-    const double sin_theta = std::sin(radians);
-    return {x * cos_theta - y * sin_theta, x * sin_theta + y * cos_theta};
-  }
-};
 
 int main(void) {
   glfwSetErrorCallback([](const int error, const char *const description) {
@@ -53,25 +37,26 @@ int main(void) {
         glViewport(0, 0, width, height);
       });
 
-  const auto vertex1 = Vector2<double>{0, 1};
-  const auto vertex2 = vertex1.rotate(120);
-  const auto vertex3 = vertex1.rotate(240);
+  const auto vertex1 = glm::vec2(0, 1);
+  const float angle = 2.f / 3.f * glm::pi<float>();
 
-  const float nudge = .25;
+  auto rotationMatrix = glm::mat2(glm::vec2(std::cos(angle), std::sin(angle)),
+                                  glm::vec2(std::sin(-angle), std::cos(angle)));
+
+  const glm::vec2 vertex2 = vertex1 * rotationMatrix;
+  const glm::vec2 vertex3 = vertex2 * rotationMatrix;
 
   while (!glfwWindowShouldClose(window)) {
     glClear(GL_COLOR_BUFFER_BIT);
     glfwPollEvents();
 
     glBegin(GL_TRIANGLES);
-    glVertex2f(vertex1.x, static_cast<float>(vertex1.y) - nudge);
-    glColor3f(1, 0, 0);
-    glVertex2f(static_cast<float>(vertex2.x),
-               static_cast<float>(vertex2.y) - nudge);
-    glColor3f(0, 1, 0);
-    glVertex2f(static_cast<float>(vertex3.x),
-               static_cast<float>(vertex3.y) - nudge);
-    glColor3f(0, 0, 1);
+    glVertex2f(vertex1.x, vertex1.y);
+    glColor3f(1.f, 0.f, 0.f);
+    glVertex2f(vertex2.x, vertex2.y);
+    glColor3f(0.f, 1.f, 0.f);
+    glVertex2f(vertex3.x, vertex3.y);
+    glColor3f(0.f, 0.f, 1.f);
     glEnd();
 
     glfwSwapBuffers(window);
