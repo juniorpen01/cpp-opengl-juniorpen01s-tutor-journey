@@ -16,7 +16,7 @@ int main(void) {
 
   if (!glfwInit()) {
     fmt::println("Unable to create initialize GLFW");
-    return 1;
+    return EXIT_FAILURE;
   }
 
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -36,7 +36,8 @@ int main(void) {
       WIDTH, HEIGHT, "juniorpen01's Tutor Journey", nullptr, nullptr);
   if (window == nullptr) {
     fmt::println("Unable to create GLFW window");
-    return 1;
+    glfwTerminate();
+    return EXIT_FAILURE;
   }
 
   glfwMakeContextCurrent(window);
@@ -44,7 +45,9 @@ int main(void) {
   if (const GLenum err = glewInit(); err != GLEW_OK) {
     fmt::println("Unable to initialize GLEW [{}]: {}", err,
                  reinterpret_cast<const char *const>(glewGetErrorString(err)));
-    return 1;
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    return EXIT_FAILURE;
   }
 
   glfwSetFramebufferSizeCallback(
