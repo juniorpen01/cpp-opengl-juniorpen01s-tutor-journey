@@ -1,8 +1,10 @@
+#include <cmath>
+#include <type_traits>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <cmath>
 #include <fmt/core.h>
-#include <type_traits>
+#include <glm/glm.hpp>
 
 constexpr int WIDTH = 800;
 constexpr int HEIGHT = 800;

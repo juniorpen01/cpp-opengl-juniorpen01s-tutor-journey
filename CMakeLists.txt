@@ -22,7 +22,7 @@ add_library(juniorpen01s_tutor_journey::core ALIAS
             juniorpen01s_tutor_journey_core)
 target_include_directories(juniorpen01s_tutor_journey_core PUBLIC include)
 target_link_libraries(juniorpen01s_tutor_journey_core PUBLIC glfw glew_s
-                                                             fmt::fmt)
+                                                             glm::glm fmt::fmt)
 target_compile_options(juniorpen01s_tutor_journey_core
                        PUBLIC -Weverything -Wno-c++98-compat -Werror)
 
@@ -56,6 +56,14 @@ FetchContent_MakeAvailable(glew)
 
 target_include_directories(juniorpen01s_tutor_journey_core SYSTEM
                            PUBLIC ${glew_SOURCE_DIR}/include)
+
+FetchContent_Declare(
+  glm
+  GIT_REPOSITORY https://github.com/g-truc/glm
+  GIT_TAG 1.0.1
+  GIT_SHALLOW ON
+  SYSTEM)
+FetchContent_MakeAvailable(glm)
 
 FetchContent_Declare(
   fmt
